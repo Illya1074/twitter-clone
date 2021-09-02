@@ -69,6 +69,38 @@ export class TweetsController {
     });
   }
 
+  @Post('create-comment')
+  async createComment(
+    @Body() postData: { tweetId: number; content: string; username: string },
+  ): Promise<any> {
+    const { tweetId, content, username } = postData;
+    return this.tweetsService.createComment({
+      content,
+      username,
+      tweet: {
+        connect: {
+          id: tweetId,
+        },
+      },
+    });
+  }
+
+  @Post('get-comment')
+  async getComment(@Body() postData: { id: number }): Promise<any> {
+    const { id } = postData;
+    return this.tweetsService.getComment({
+      id,
+    });
+  }
+
+  @Post('delete-comment')
+  async deleteComment(@Body() postData: { id: number }): Promise<any> {
+    const { id } = postData;
+    return this.tweetsService.deleteComment({
+      id,
+    });
+  }
+
   @Get('many-tweets')
   async findManyTweets(): Promise<TweetModel[]> {
     return this.tweetsService.findTweets({});

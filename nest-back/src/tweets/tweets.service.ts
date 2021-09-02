@@ -1,14 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { Tweet, Prisma } from '@prisma/client';
+import { Comment, Tweet, Prisma } from '@prisma/client';
 
 @Injectable()
 export class TweetsService {
   constructor(private prisma: PrismaService) {}
 
   async createTweet(data: Prisma.TweetCreateInput): Promise<Tweet> {
+    console.log(data);
     return this.prisma.tweet.create({
       data,
+    });
+  }
+
+  async createComment(data: Prisma.CommentCreateInput): Promise<Comment> {
+    console.log(data);
+    return this.prisma.comment.create({
+      data,
+    });
+  }
+
+  async getComment(where: Prisma.CommentWhereUniqueInput): Promise<Comment> {
+    return this.prisma.comment.findUnique({
+      where,
+    });
+  }
+
+  async deleteComment(where: Prisma.CommentWhereUniqueInput): Promise<Comment> {
+    return this.prisma.comment.delete({
+      where,
     });
   }
 
@@ -20,6 +40,7 @@ export class TweetsService {
       where,
       include: {
         likeBy: true,
+        comment: true,
       },
     });
   }
@@ -43,6 +64,7 @@ export class TweetsService {
       where,
       include: {
         likeBy: true,
+        comment: true,
       },
     });
   }

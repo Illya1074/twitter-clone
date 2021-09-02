@@ -20,11 +20,19 @@ let UsersService = class UsersService {
     async findUser(email) {
         return this.prisma.user.findUnique({
             where: email,
+            include: {
+                following: true,
+                follower: true,
+            },
         });
     }
     async findUserById(id) {
         return this.prisma.user.findUnique({
             where: id,
+            include: {
+                following: true,
+                follower: true,
+            },
         });
     }
     async createUser(data) {
@@ -35,6 +43,12 @@ let UsersService = class UsersService {
                 password: await bcrypt.hash(data.password, 8),
             },
         });
+    }
+    async createFollowing(data) {
+        return this.prisma.following.create(Object.assign({}, data));
+    }
+    async createFollower(data) {
+        return this.prisma.follower.create(Object.assign({}, data));
     }
     async users(params) {
         const { skip, take, cursor, where, orderBy } = params;

@@ -17,8 +17,25 @@ let TweetsService = class TweetsService {
         this.prisma = prisma;
     }
     async createTweet(data) {
+        console.log(data);
         return this.prisma.tweet.create({
             data,
+        });
+    }
+    async createComment(data) {
+        console.log(data);
+        return this.prisma.comment.create({
+            data,
+        });
+    }
+    async getComment(where) {
+        return this.prisma.comment.findUnique({
+            where,
+        });
+    }
+    async deleteComment(where) {
+        return this.prisma.comment.delete({
+            where,
         });
     }
     async findTweets(params) {
@@ -27,6 +44,7 @@ let TweetsService = class TweetsService {
             where,
             include: {
                 likeBy: true,
+                comment: true,
             },
         });
     }
@@ -43,6 +61,7 @@ let TweetsService = class TweetsService {
             where,
             include: {
                 likeBy: true,
+                comment: true,
             },
         });
     }

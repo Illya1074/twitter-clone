@@ -49,6 +49,31 @@ let UsersController = class UsersController {
     async deleteUser(userData) {
         return this.userService.deleteUser(userData);
     }
+    async createFollowing(userData) {
+        const { followerEmail, userId, username, userEmail, followerId, followerUsername, } = userData;
+        this.userService.createFollower({
+            data: {
+                email: userEmail,
+                username: username,
+                user: {
+                    connect: {
+                        id: followerId,
+                    },
+                },
+            },
+        });
+        return this.userService.createFollowing({
+            data: {
+                email: followerEmail,
+                username: followerUsername,
+                user: {
+                    connect: {
+                        id: userId,
+                    },
+                },
+            },
+        });
+    }
 };
 __decorate([
     public_metada_1.Public(),
@@ -86,6 +111,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteUser", null);
+__decorate([
+    common_1.Post('following'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "createFollowing", null);
 UsersController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [users_service_1.UsersService])

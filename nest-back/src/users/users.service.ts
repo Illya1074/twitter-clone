@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { User, Prisma } from '@prisma/client';
+import { Follower, Following, User, Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 // This should be a real class/interface representing a user entity
@@ -13,12 +13,20 @@ export class UsersService {
   async findUser(email: Prisma.UserWhereUniqueInput): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: email,
+      include: {
+        following: true,
+        follower: true,
+      },
     });
   }
 
   async findUserById(id: Prisma.UserWhereUniqueInput): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: id,
+      include: {
+        following: true,
+        follower: true,
+      },
     });
   }
 
@@ -29,6 +37,18 @@ export class UsersService {
         username: data.username,
         password: await bcrypt.hash(data.password, 8),
       },
+    });
+  }
+
+  async createFollowing(data: any): Promise<Following> {
+    return this.prisma.following.create({
+      ...data,
+    });
+  }
+
+  async createFollower(data: any): Promise<Follower> {
+    return this.prisma.follower.create({
+      ...data,
     });
   }
 

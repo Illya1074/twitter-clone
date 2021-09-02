@@ -128,5 +128,25 @@ export function signup(data) {
   }
 }
 
+export function following({userId, username, userEmail, followerUsername, followerEmail, followerId, jwt}) {
+  // And then creates and returns the async thunk function:
+  return async function getUserThunk(dispatch, getState) {
+    // ✅ Now we can use the text value and send it to the server
+    const response = await client('http://localhost:1374/following', { 
+      body: {
+        userId,
+        username,
+        userEmail,
+        followerUsername,
+        followerEmail,
+        followerId,
+      },  
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    })
+    console.log(response)
+  }
+}
 
 export default userReducer;

@@ -10,25 +10,46 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  username  String?
-  password String
-  desc String?
-  location String?
-  createdAt  DateTime   @default(now())
-  likedTweets Tweet[] 
+  id          Int         @id @default(autoincrement())
+  userId      Int?
+  email       String      @unique
+  username    String?
+  password    String
+  desc        String?
+  location    String?
+  createdAt   DateTime    @default(now())
+  likedTweets Tweet[]
+  following   Following[] @relation(fields: [userId], references: [id])
+  follower   Follower[] @relation(fields: [userId], references: [id])
+}
+
+model Follower {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  username String
+  user     User[]
+}
+
+model Following {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  username String
+  user     User[]
 }
 
 model Tweet {
-  id        Int      @default(autoincrement()) @id
-  content   String?
-  authorId  Int?
+  id             Int     @id @default(autoincrement())
+  content        String?
+  authorId       Int?
   authorUsername String?
-  likeBy User[] @relation(fields: [authorId],references: [id])
+  likeBy         User[]  @relation(fields: [authorId], references: [id])
+  comment Comment[] @relation(fields: [authorId], references: [id])
 }
 
-
-
+model Comment {
+  id       Int    @id @default(autoincrement())
+  content String
+  tweet Tweet[]
+  username String?
+}

@@ -1,9 +1,14 @@
 import React, {useState} from 'react'
 import Avatar from './avatar'
+import {useSelector} from 'react-redux'
 import styles from '../../styles/Home.module.css'
-
-const Tweet = ({tweetInfo, like}) => {
-    const [likes, useLikes] = useState(tweetInfo.likeBy ? tweetInfo.likeBy.length : 0)
+import CommentForm from '../comment/commentForm'
+const Tweet = ({tweetInfo, like, sendComment}) => {
+    const [likes, useLikes] = useState(tweetInfo ? tweetInfo.likeBy.length : 0)
+    const [comment, useComment] = useState(tweetInfo ? tweetInfo.comment.length : 0)
+    const [commentForm, setCommentForm] = useState(false)
+    const user = useSelector(state => state.user)
+    const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
     const [count, setCount] = useState(true)
     const likeFunc = () => {
         like({tweetId:tweetInfo.id})
@@ -12,10 +17,20 @@ const Tweet = ({tweetInfo, like}) => {
             setCount(false)
         }
     }
+    const commentSwitch = () => {
+        setCommentForm(!commentForm)
+    }
     return (
-        <div className={styles['home_content-section_tweet']}>
+        <>
+        { 
+            commentForm ?
+            <CommentForm commentSwitch={commentSwitch} tweetInfo={tweetInfo} like={(id)=>likeFunc(id)} letter={letter} 
+            sendTweet={sendComment} />
+            : null
+        }
+        {tweetInfo ? <div className={styles['home_content-section_tweet']}>
             <div className={styles['home_content-section_tweet-avatar']}>
-                <Avatar letter={tweetInfo.authorUsername[0].toUpperCase()}/>
+                <Avatar letter={tweetInfo.authorUsername[0].toLowerCase()}/>
             </div>
             <div className={styles['home_content-section_tweet-content']}>
                 <div className={styles['home_content-section_tweet-content_info']}>
@@ -30,12 +45,12 @@ const Tweet = ({tweetInfo, like}) => {
                     {tweetInfo.content}
                 </div>
                 <div className={styles['home_content-section_tweet-footer']}>
-                    <div className={styles['home_content-section_tweet-footer_item']}>
+                    <div onClick={commentSwitch} className={styles['home_content-section_tweet-footer_item']}>
                         <div className={styles['home_content-section_tweet-footer_item-svg']}>
                             <svg fill="#666" viewBox="0 0 24 24" aria-hidden="true" className="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"><g><path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z"></path></g></svg>
                         </div>
                         <div className={styles['home_content-section_tweet-footer_number']}>
-                            5
+                            {comment}
                         </div>
                     </div>
                     <div className={styles['home_content-section_tweet-footer_item']}>
@@ -61,7 +76,8 @@ const Tweet = ({tweetInfo, like}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> : null}
+        </>
     )
 }
 

@@ -5,17 +5,40 @@ import ProfileUserSection from '../../components/profile/profileUserSection'
 import ContentWrapper from '../../components/home/contentWrapper';
 import Head from 'next/head'
 import {useSelector} from 'react-redux'
+import { following } from '../../redux/reducers/userReducer'
+import store from '../../redux/store'
+import Trends from '../../components/home/trends';
+import styles from '../../styles/Home.module.css'
+import style from '../../styles/Home.module.css'
+import Sidebar from '../../components/sidebar/sidebar';
+
 
 const Profile = () => {
+    const [tweets, setTweets] = useState([])
     const router = useRouter()
     const { id } = router.query
     const user = useSelector(state => state.user)
+    const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
+    const state = useSelector(state => state.tweets)
     const [profile, setProfile] = useState({
         location: '',
         desc: '',
         username: '',
+        email: '',
+        id: null,
+        follower: 0,
+        following: 0,
     })
 
+    useEffect(() => {
+        const myTweets = [...state.tweets] 
+        setTweets(myTweets.reverse())
+        console.log(user)
+        return () => {
+        setTweets([]); // This worked for me
+        }; 
+    }, [state])
+    
     useEffect(() => {
         if(id){
             axios.post(process.env.ENDPOINT+'/get-user-by-id',{
@@ -31,11 +54,28 @@ const Profile = () => {
                     location: res.data.location || '',
                     desc: res.data.desc || '',
                     username: res.data.username || '',
+                    email: res.data.email || '',
+                    id: res.data.id || null,
+                    follower: res.data.follower.length || 0,
+                    following: res.data.following.length || 0,
                 })
             })
         }
         
   }, [id])
+
+  const follow = () => {
+      store.dispatch(following({
+        userId: user.info.id,
+        username: user.info.username,
+        userEmail: user.info.email,
+        followerUsername: profile.username,
+        followerEmail: profile.email,
+        followerId: profile.id,
+        jwt: user.jwt,
+      }))
+  }
+
     return (
         <>
             <Head>
@@ -45,9 +85,21 @@ const Profile = () => {
             </Head>
             {/* User Profile {id} */}
             {/* Profile */}
-            <ContentWrapper>
-                <ProfileUserSection profile={profile}/>
-            </ContentWrapper>
+            <div className={styles.container}>
+                <main className={styles.home}>
+                    <Sidebar letter={letter}/>
+                    <ContentWrapper>
+                        <ProfileUserSection follow={follow} profile={profile}/>
+                    </ContentWrapper>
+                    <div className={style['home_propose-section']}>
+                        <div className={style['home_propose-section_input']}>
+                        <input placeholder="Search Twitter"/>
+                        </div>
+                        <Trends/>
+                    </div>
+
+                </main>
+            </div>
         </>
     )
 }

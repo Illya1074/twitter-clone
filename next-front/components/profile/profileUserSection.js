@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../../styles/Profile.module.css'
 
-const ProfileUserSection = ({profile}) => {
+const ProfileUserSection = ({profile, follow}) => {
     
     return (
         <div className={styles['profile_content-section']}>
@@ -14,7 +14,7 @@ const ProfileUserSection = ({profile}) => {
             <div className={styles['profile_content-section_edit']}>
               <div>
               </div>
-              <div  className={styles['profile_content-section_edit-button']}>
+              <div onClick={follow} className={styles['profile_content-section_edit-button']}>
                   Follow
               </div>
             </div>
@@ -51,10 +51,10 @@ const ProfileUserSection = ({profile}) => {
                 </div>
                 <div className={styles['profile_content-section-info_followers']}>
                     <div className={styles['profile_content-section-info_followers_item']}>
-                        <span>5</span> Following
+                        <span>{profile.following}</span> Following
                     </div>
                     <div className={styles['profile_content-section-info_followers_item']}>
-                        <span>0</span> Followers
+                        <span>{profile.follower}</span> Followers
                     </div>
                 </div>
             </div>

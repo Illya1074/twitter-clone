@@ -21,5 +21,16 @@ export declare class TweetsController {
     deleteTweets(postData: {
         id: number;
     }): Promise<string>;
+    createComment(postData: {
+        tweetId: number;
+        content: string;
+        username: string;
+    }): Promise<any>;
+    getComment(postData: {
+        id: number;
+    }): Promise<any>;
+    deleteComment(postData: {
+        id: number;
+    }): Promise<any>;
     findManyTweets(): Promise<TweetModel[]>;
 }

@@ -3,7 +3,6 @@ import {useState, useEffect, useRef} from 'react'
 import Head from 'next/head'
 import ContentWrapper from '../../components/home/contentWrapper';
 import Trends from '../../components/home/trends';
-import Tweet from '../../components/home/tweet';
 import {useSelector} from 'react-redux'
 import store from '../../redux/store'
 import { updateProfile } from '../../redux/reducers/userReducer'
@@ -11,12 +10,15 @@ import { fetchTweets } from '../../redux/reducers/tweetsReducer'
 import axios from 'axios';
 import ProfileInfoSection from '../../components/profile/profileInfoSection';
 import EditSection from '../../components/profile/editSection';
+import Sidebar from '../../components/sidebar/sidebar';
+import styles from '../../styles/Home.module.css'
 // import Image from 'next/image'
 
 export default function Home() {
   const [tweets, setTweets] = useState([])
   const user = useSelector(state => state.user)
   const [editSec, setEditSec] = useState(false)
+  const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
   const state = useSelector(state => state.tweets)
   const [profile, setProfile] = useState({
     location: '',
@@ -88,20 +90,19 @@ export default function Home() {
         : 
         null
       }
-        
-      <ContentWrapper>
-        <ProfileInfoSection edit={()=>setEditSec(true)} profile={profile}/>
-        {
-          tweets.map((item, key)=> 
-            <Tweet message={item.content} key={key}/>
-          )
-        }    
-      </ContentWrapper>
-      <div className={style['home_propose-section']}>
-        <div className={style['home_propose-section_input']}>
-          <input placeholder="Search Twitter"/>
-        </div>
-        <Trends/>
+      <div className={styles.container}>
+        <main className={styles.home}>
+          <Sidebar letter={letter}/>
+          <ContentWrapper>
+            <ProfileInfoSection edit={()=>setEditSec(true)} profile={profile}/> 
+          </ContentWrapper>
+          <div className={style['home_propose-section']}>
+            <div className={style['home_propose-section_input']}>
+              <input placeholder="Search Twitter"/>
+            </div>
+            <Trends/>
+          </div>
+        </main>
       </div>
     </>
   )

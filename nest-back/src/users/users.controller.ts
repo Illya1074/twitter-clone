@@ -57,4 +57,48 @@ export class UsersController {
   async deleteUser(@Body() userData: { id: number }): Promise<any> {
     return this.userService.deleteUser(userData);
   }
+
+  @Post('following')
+  async createFollowing(
+    @Body()
+    userData: {
+      followerEmail: string;
+      userId: number;
+      username: string;
+      userEmail: string;
+      followerId: number;
+      followerUsername: string;
+    },
+  ): Promise<any> {
+    const {
+      followerEmail,
+      userId,
+      username,
+      userEmail,
+      followerId,
+      followerUsername,
+    } = userData;
+    this.userService.createFollower({
+      data: {
+        email: userEmail,
+        username: username,
+        user: {
+          connect: {
+            id: followerId,
+          },
+        },
+      },
+    });
+    return this.userService.createFollowing({
+      data: {
+        email: followerEmail,
+        username: followerUsername,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  }
 }

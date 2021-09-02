@@ -22,4 +22,12 @@ export declare class UsersController {
     deleteUser(userData: {
         id: number;
     }): Promise<any>;
+    createFollowing(userData: {
+        followerEmail: string;
+        userId: number;
+        username: string;
+        userEmail: string;
+        followerId: number;
+        followerUsername: string;
+    }): Promise<any>;
 }

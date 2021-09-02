@@ -68,6 +68,30 @@ let TweetsController = class TweetsController {
             },
         });
     }
+    async createComment(postData) {
+        const { tweetId, content, username } = postData;
+        return this.tweetsService.createComment({
+            content,
+            username,
+            tweet: {
+                connect: {
+                    id: tweetId,
+                },
+            },
+        });
+    }
+    async getComment(postData) {
+        const { id } = postData;
+        return this.tweetsService.getComment({
+            id,
+        });
+    }
+    async deleteComment(postData) {
+        const { id } = postData;
+        return this.tweetsService.deleteComment({
+            id,
+        });
+    }
     async findManyTweets() {
         return this.tweetsService.findTweets({});
     }
@@ -107,6 +131,27 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], TweetsController.prototype, "deleteTweets", null);
+__decorate([
+    common_1.Post('create-comment'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TweetsController.prototype, "createComment", null);
+__decorate([
+    common_1.Post('get-comment'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TweetsController.prototype, "getComment", null);
+__decorate([
+    common_1.Post('delete-comment'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TweetsController.prototype, "deleteComment", null);
 __decorate([
     common_1.Get('many-tweets'),
     __metadata("design:type", Function),
