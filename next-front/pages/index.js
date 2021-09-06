@@ -9,9 +9,7 @@ import Trends from '../components/home/trends';
 import {useSelector} from 'react-redux'
 import { addNewTweet, fetchTweets, like, comment } from '../redux/reducers/tweetsReducer'
 import { logout } from '../redux/reducers/userReducer'
-import CommentForm from '../components/comment/commentForm';
 import Sidebar from '../components/sidebar/sidebar';
-
 // import Image from 'next/image'
 
 export default function Home() {
@@ -20,6 +18,7 @@ export default function Home() {
   const state = useSelector(state => state.tweets)
   const user = useSelector(state => state.user)
   const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
+  const [form, setForm] = useState(true)
 
   useEffect(() => {
     if(user.jwt !== undefined){
@@ -68,6 +67,7 @@ export default function Home() {
     }))
   }
 
+
   return (
     <>
       <Head>
@@ -78,7 +78,7 @@ export default function Home() {
       <div className={styles.container}>
         <main className={styles.home}>
           <Sidebar letter={letter}/>
-      
+          
           <ContentWrapper>
             <div className={styles['home_content-section_title']}>
               <h3 onClick={clickLogout}>Home</h3>

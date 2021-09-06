@@ -551,3 +551,90 @@
   top: 85%;
   left: 50px;
 }
+
+.home_content-section_form-image_first-img {
+  width: 290px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  height: 150px;
+  background-color: grey;
+  background: url('../public/images/index.png') 0 / 100% 100% no-repeat;
+  margin: 10px auto 0;
+}
+.home_content-section_form-image_second-img {
+  width: 290px;
+  border-radius: 10px;
+  height: 150px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  background: url('../public/images/nodejs-logo.webp') 0 / 100% 100% no-repeat;
+  background-color: grey;
+  margin: 10px auto 0;
+}
+.home_content-section_form-image_third-img {
+  width: 290px;
+  border-radius: 10px;
+  height: 150px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  background-color: grey;
+  margin: 10px auto 0;
+  background: url('../public/images/pilkarze-manchesteru-city-po-strzelonym-golu.jpg')
+    0 / 100% 100% no-repeat;
+}
+.home_content-section_form-image_fourth-img {
+  width: 290px;
+  height: 150px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  background: url('../public/images/pink-floyd-1973-32d763d9-8deb-4cd8-a287-92ae0de7df3a.jpg')
+    0 / 100% 100% no-repeat;
+  background-color: grey;
+  margin: 10px auto 0;
+}
+.home_content-section_form-image_fivth-img {
+  width: 290px;
+  height: 150px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  background: url('../public/images/Twitter.png') 0 / 100% 100% no-repeat;
+  background-color: grey;
+  margin: 10px auto 0;
+}
+.home_content-section_form-image_sixth-img {
+  width: 290px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  background: url('../public/images/While-She-Sleeps.jpg') 0 / 100% 100%
+    no-repeat;
+  height: 150px;
+  background-color: grey;
+  margin: 10px auto 0;
+}
+
+.home_content_image-background {
+  background-color: black;
+  width: 100%;
+  transition: 0.2s;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+.home_content_image-background:hover {
+  opacity: 0.2;
+  transition: 0.2s;
+}
+
+.home_content_image-sec {
+  width: 100%;
+  height: 100%;
+  padding: 30px 0;
+  display: flex;
+  flex-wrap: wrap;
+}

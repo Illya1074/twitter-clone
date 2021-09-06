@@ -1,10 +1,18 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from '../../styles/Home.module.css'
 import Avatar from '../home/avatar'
 import Image from 'next/image'
 import SidebarWrapper from '../sidebar/sidebarWrapper'
 import SidebarItem from './sidebarItem'
+import {useSelector} from 'react-redux'
+
 const Sidebar = ({letter}) => {
+    const user = useSelector(state => state.user);
+    const [username, setUsername] = useState('');
+    useEffect(() => {
+        setUsername(user.info.username)
+    }, [user])
+
     return (
         <SidebarWrapper>
             <ul className={styles['home_sidebar_list']}>
@@ -45,10 +53,10 @@ const Sidebar = ({letter}) => {
                 <Avatar letter={letter}/>
                 <div className={styles['home_sidebar_footer-info']}>
                 <div className={styles['home_sidebar_footer-info_username']}>
-                    IlliaSheremetov
+                    {username || ''}
                 </div>
                 <div className={styles['home_sidebar_footer-info_hashname']}>
-                    @IlliaSheremetov
+                    @{username ? username.toLowerCase() : ''}
                 </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
-import React, {useRef, useState} from 'react'
+import React, {useState} from 'react'
 import styles from '../../styles/Home.module.css'
+import Form from '../../components/ui_items/form'; 
 import Avatar from './avatar'
 import ContentEditable from 'react-contenteditable'
 import dynamic from "next/dynamic";
@@ -11,12 +12,12 @@ const SendTweet = (props) => {
     const [tweetText, setTweetText] = useState("");
     const [placeholderState, setPlaceholderState] = useState(true)
     const [emojiState, setEmojiState] = useState(false);
-
+    const [pic, setPic] = useState('')
+    const [form, setForm] = useState(false);
     const onEmojiClick = (event, emojiObject) => {
         setPlaceholderState(false)
         setTweetText(tweetText+emojiObject.emoji)
     };
-
     const handleChange = evt => {
         setTweetText(evt.target.value)
         if(evt.target.value === '<br>' || evt.target.value === ''){
@@ -34,22 +35,56 @@ const SendTweet = (props) => {
     
     return (
        <div className={styles['home_content-section_send_tweet']}>
+            <Form exitForm={()=>setForm(false)} form={form}>
+                <div className={styles['home_content_image-sec']}>
+                    <div onClick={()=>setPic('home_content-section_form-image_first-img')} className={styles['home_content-section_form-image_first-img']} >
+                        <div className={styles['home_content_image-background']}></div>
+                        {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
+                    </div>
+                     <div onClick={()=>setPic('home_content-section_form-image_second-img')} className={styles['home_content-section_form-image_second-img']}>
+                         <div className={styles['home_content_image-background']}></div>
+                        {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
+                    </div>
+                     <div onClick={()=>setPic('home_content-section_form-image_third-img')} className={styles['home_content-section_form-image_third-img']}>
+                         <div className={styles['home_content_image-background']}></div>
+                        {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
+                    </div>
+                     <div onClick={()=>setPic('home_content-section_form-image_fourth-img')} className={styles['home_content-section_form-image_fourth-img']}>
+                         <div className={styles['home_content_image-background']}></div>
+                        {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
+                    </div>
+                     <div onClick={()=>setPic('home_content-section_form-image_fivth-img')} className={styles['home_content-section_form-image_fivth-img']}>
+                         <div className={styles['home_content_image-background']}></div>
+                        {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
+                    </div>
+                     <div onClick={()=>setPic('home_content-section_form-image_sixth-img')} className={styles['home_content-section_form-image_sixth-img']}>
+                         <div className={styles['home_content_image-background']}></div>
+                        {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
+                    </div>
+                </div>
+                
+            </Form>
             <div className={styles['home_content-section_send_tweet-section']}>
                 <Avatar letter={props.letter}/>
                 {/* <input onChange={(e)=>props.setTweet(e.target.value)} value={props.tweet} className={styles['home_content-ection_send_tweet-section-input']} placeholder="What's happening?"></input> */}
                 {/* <div className={styles['home_content-ection_send_tweet-section-input']}> */}
-                    
+                
                 <div className={styles['home_content-ection_send_tweet-section-input_wrapper']}>
                     {placeholderState ? <div className={styles["my-custom-placeholder"]}>What's happening?</div> : null}
                     <ContentEditable placeholder="What's happening?" className={styles['home_content-ection_send_tweet-section-input']} 
                     html={tweetText} onChange={handleChange} />
-                    </div>
+                    
+                </div>
                 {/* </div> */}
+            </div>
+            <div className={styles[pic]} >
+                <div className={styles['home_content_image-background']}></div>
+                {/* <Image src='/images/index.png' width='300px' height="150px"  alt="Picture of the author" /> */}
             </div>
             <div className={styles['home_content-section_send_tweet-flex']}>
                 <div className={styles['home_content-section_send_tweet-flex_svg']}>
                     
-                    <div className={styles['home_content-section_send_tweet-flex_svg-item_wrapper']}>
+                    <div onClick={() => setForm(true)} className={styles['home_content-section_send_tweet-flex_svg-item_wrapper']}>
                         <svg className={styles['home_content-section_send_tweet-flex_svg-item']} fill='rgb(29, 161, 242)' viewBox="0 0 24 24" aria-hidden="true" ><g><path d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z"></path><circle cx="8.868" cy="8.309" r="1.542"></circle></g></svg>    
                     </div>
                     <div className={styles['home_content-section_send_tweet-flex_svg-item_wrapper']}>
