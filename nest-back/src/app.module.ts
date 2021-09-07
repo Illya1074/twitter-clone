@@ -9,6 +9,7 @@ import { PrismaService } from './prisma.service';
 import { TweetsModule } from './tweets/tweets.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 // import { TweetsController } from './tweets/tweets.controller';
+import { ChatModule } from './chat/chat.module';
 @Module({
   imports: [
     AuthModule,
@@ -17,6 +18,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [

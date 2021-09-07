@@ -4,8 +4,9 @@ import Form from '../../components/ui_items/form';
 import Avatar from './avatar'
 import ContentEditable from 'react-contenteditable'
 import dynamic from "next/dynamic";
+
 const Picker = dynamic(() => import("./emojiPicker"), {
-  ssr: false,
+  ssr: false,  
 });
 
 const SendTweet = (props) => {
@@ -14,10 +15,12 @@ const SendTweet = (props) => {
     const [emojiState, setEmojiState] = useState(false);
     const [pic, setPic] = useState('')
     const [form, setForm] = useState(false);
+   
     const onEmojiClick = (event, emojiObject) => {
         setPlaceholderState(false)
         setTweetText(tweetText+emojiObject.emoji)
     };
+   
     const handleChange = evt => {
         setTweetText(evt.target.value)
         if(evt.target.value === '<br>' || evt.target.value === ''){

@@ -10,7 +10,6 @@ import {useSelector} from 'react-redux'
 import { addNewTweet, fetchTweets, like, comment } from '../redux/reducers/tweetsReducer'
 import { logout } from '../redux/reducers/userReducer'
 import Sidebar from '../components/sidebar/sidebar';
-// import Image from 'next/image'
 
 export default function Home() {
   const [tweet, setTweet] = useState('')
