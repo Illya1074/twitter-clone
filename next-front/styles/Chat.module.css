@@ -1,0 +1,152 @@
+.chat {
+  margin-left: 300px;
+  width: 900px;
+  height: 100vh;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat_users {
+  width: 40%;
+  border-right: 1px solid #eee;
+}
+
+.chat_users_top-sec {
+  height: 50px;
+  border-bottom: 1px solid #eee;
+  font-family: twitterBold, 'Verdana', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 2.3;
+  padding: 0 0 0 10px;
+}
+
+.chat_users_input-sec {
+  height: 65px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.chat_messages {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat_messages_top-sec {
+  min-height: 50px;
+  border-bottom: 1px solid #eee;
+  font-family: twitterBold, 'Verdana', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 2.3;
+  padding: 0 0 0 10px;
+}
+
+.chat_messages-sec {
+  height: 100%;
+  overflow: scroll;
+
+  /* border: 1px solid blue; */
+}
+
+.chat_messages-input {
+  height: 60px;
+  width: 100%;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+  /* padding: 4px; */
+}
+
+.chat_messages-input input {
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  outline: none;
+  height: 80%;
+  margin: 6px;
+  width: 75%;
+  padding: 0 0 0 10px;
+}
+
+.chat_messages-input input::placeholder {
+  font-family: twitterRegular, 'Verdana', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+.chat_messages-input_button {
+  cursor: pointer;
+  background: rgb(29, 161, 242);
+  margin: auto;
+  line-height: 2.7;
+  text-align: center;
+  height: 80%;
+  color: white;
+  width: 100px;
+  font-size: 16px;
+  font-family: twitterBold, 'Verdana', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* height: 30px; */
+  border-radius: 30px;
+}
+
+.chat_messages-sec_content-message-right {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  /* border: 1px solid red; */
+  margin: 8px 0;
+}
+
+.chat_messages-sec_content-message-right_text {
+  /* border: 1px solid blue; */
+  min-width: min-content;
+  max-width: 70%;
+  line-height: 1.5;
+  padding: 9px 16px;
+  font-size: 15px;
+  background: rgb(29, 161, 242);
+  color: white;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  font-family: twitterRegular, 'Verdana', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  white-space: nowrap;
+}
+
+.chat_messages-sec_content-message-left {
+  min-height: 40px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  /* border: 1px solid red; */
+  margin: 10px 0;
+  padding: 0 0 0 10px;
+}
+
+.chat_messages-sec_content-message-left_text {
+  /* border: 1px solid blue; */
+  min-width: min-content;
+  max-width: 70%;
+  line-height: 1.5;
+  /* padding: 10px 0; */
+  padding: 9px 16px;
+  font-size: 15px;
+  background: #eee;
+  color: #111;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
+  font-family: twitterRegular, 'Verdana', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* white-space: nowrap; */
+}

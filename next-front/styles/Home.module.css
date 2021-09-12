@@ -1,6 +1,7 @@
 .home {
   width: 1250px;
-  height: 1000px;
+  height: 100vh;
+  /* padding-left: 300px; */
   margin: 0 auto;
   /* border: 1px solid #eee; */
   display: flex;
@@ -471,6 +472,11 @@
   margin: 20px 0 20px 20px;
 }
 
+.home_propose-section_input {
+  height: min-content;
+  /* border: 1px solid blue; */
+}
+
 .home_propose-section_input input {
   outline: none;
   border: none;
@@ -478,7 +484,7 @@
   height: 45px;
   background-color: rgb(239, 243, 244);
   border-radius: 30px;
-  margin: 0 0 20px;
+  /* margin: 0 0 20px; */
   padding: 0 0 0 30px;
   font-weight: 700;
   font-size: 14px;
@@ -496,7 +502,7 @@
   padding: 0 0 20px;
   border-radius: 10px;
   height: min-content;
-  /* margin: 20px 0 20px 10px; */
+  margin: 20px 0 0 0;
   display: flex;
   flex-direction: column;
 }

@@ -10,8 +10,8 @@ import {useSelector} from 'react-redux'
 import { addNewTweet, fetchTweets, like, comment } from '../redux/reducers/tweetsReducer'
 import { logout } from '../redux/reducers/userReducer'
 import Sidebar from '../components/sidebar/sidebar';
-import Input from '../components/ui_items/input';
 import io from 'socket.io-client';
+import Chat from '../components/chat/chat';
 
 function useSocket(url) {
   const [socket, setSocket] = useState(null)
@@ -34,8 +34,6 @@ function useSocket(url) {
 }
 
 export default function Home() {
-  const [tweet, setTweet] = useState('')
-  const [tweets, setTweets] = useState([])
   const state = useSelector(state => state.tweets)
   const user = useSelector(state => state.user)
   const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
@@ -56,56 +54,11 @@ export default function Home() {
     }
   }, [socket])
 
-  useEffect(() => {
-    if(user.jwt !== undefined){
-      store.dispatch(fetchTweets({jwt: user.jwt}))
-    } 
-  }, [user])
-
-  useEffect(() => {
-    if(user.jwt !== undefined){
-      console.log([...state.tweets])
-      const myTweets = [...state.tweets] 
-      setTweets(myTweets.reverse())
-    } 
-  }, [state])
 
   const handleSubmitNewMessage = () => {
     socket.emit('message', { data: Date.now() })
   }
 
-  const sendTweet = (tweetText) => {
-    const str = tweetText.replaceAll('<div>','').replaceAll('</div>','').replaceAll('<br>',' ')
-    store.dispatch(addNewTweet({
-      content: str,
-      author: user.info.email,
-      username: user.info.username,
-      authorId: user.info.id,
-      jwt: user.jwt
-    }))
-    
-  }
-
-  const sendComment = ({content, tweetId}) => {
-    store.dispatch(comment({
-      content,
-      tweetId,
-      username: user.info.username,
-      jwt: user.jwt
-    }))
-  }
-
-  const clickLogout = () => {
-    store.dispatch(logout())
-  }
-
-  const likeClick = ({tweetId}) => {
-    store.dispatch(like({
-      tweetId: tweetId,
-      userId: user.info.id,
-      jwt: user.jwt,
-    }))
-  }
 
 
   return (
@@ -118,23 +71,7 @@ export default function Home() {
       <div className={styles.container}>
         <main className={styles.home}>
           <Sidebar letter={letter}/>
-          
-          <ContentWrapper>
-            <div className={styles['home_content-section_title']}>
-              <h3 onClick={clickLogout}>Home</h3>
-              {messeges.map((item, key)=> 
-                <h5 key={key}>{item}</h5>
-              )}
-            </div>
-            <SendTweet setTweet={(val)=>setTweet(val)} letter={letter} tweet={tweet} sendTweet={sendTweet}/>
-            {tweets.map((item, key)=> 
-              <Tweet tweetInfo={item} key={key} like={(id)=>likeClick(id)} sendComment={sendComment}/>
-            )}
-          </ContentWrapper>
-          <div className={styles['home_propose-section']}>
-            <Input/>
-            <Trends/>
-          </div>
+          <Chat/>
         </main>
       </div>
     </>

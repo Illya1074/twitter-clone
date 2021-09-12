@@ -17,6 +17,7 @@ const config_1 = require("@nestjs/config");
 const prisma_service_1 = require("./prisma.service");
 const tweets_module_1 = require("./tweets/tweets.module");
 const jwt_auth_guard_1 = require("./auth/jwt-auth.guard");
+const chat_module_1 = require("./chat/chat.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,6 +29,7 @@ AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
+            chat_module_1.ChatModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
