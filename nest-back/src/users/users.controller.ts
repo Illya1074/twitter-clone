@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Public } from '../auth/public-metada';
 
@@ -21,6 +21,11 @@ export class UsersController {
     return this.userService.findUser({
       email: userData.email,
     });
+  }
+
+  @Get('get-users')
+  async getUsers(): Promise<any> {
+    return this.userService.findUsers();
   }
 
   @Post('get-user-by-id')

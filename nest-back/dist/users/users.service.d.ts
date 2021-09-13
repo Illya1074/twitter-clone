@@ -9,6 +9,7 @@ export declare class UsersService {
     createUser(data: any): Promise<User>;
     createFollowing(data: any): Promise<Following>;
     createFollower(data: any): Promise<Follower>;
+    findUsers(): Promise<User[]>;
     users(params: {
         skip?: number;
         take?: number;

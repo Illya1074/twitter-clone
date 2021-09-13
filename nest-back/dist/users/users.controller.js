@@ -28,6 +28,9 @@ let UsersController = class UsersController {
             email: userData.email,
         });
     }
+    async getUsers() {
+        return this.userService.findUsers();
+    }
     async findUserById(userData) {
         return this.userService.findUserById({
             id: userData.id,
@@ -90,6 +93,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUser", null);
+__decorate([
+    common_1.Get('get-users'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getUsers", null);
 __decorate([
     common_1.Post('get-user-by-id'),
     __param(0, common_1.Body()),

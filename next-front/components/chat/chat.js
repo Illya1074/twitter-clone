@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import styles from '../../styles/Chat.module.css'
+import React, {useEffect, useState} from 'react';
+import styles from '../../styles/Chat.module.css';
 import io from 'socket.io-client';
-import Input from '../ui_items/input'
+import Input from '../ui_items/input';
 import Message from './message';
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
+import UserInfo from '../ui_items/userInfo';
+import Axios from 'axios';
 
 function useSocket(url, room) {
   const [socket, setSocket] = useState(null)
@@ -26,14 +28,37 @@ function useSocket(url, room) {
 }
 
 const Chat = () => {
-    const socket = useSocket('http://localhost:1374')
-    const room = '12$13';
-    const friendId = 13;
+    const socket = useSocket(process.env.ENDPOINT)
+    const [room, setRoom] = useState('');
+    const [friendId, setFriendId] = useState(0);
     const [messeges, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const user = useSelector(state => state.user)
-    const [myId,setMyId] = useState(user.info.id);
+    const [myId, setMyId] = useState(user.info ? user.info.id  : null);
+    const [users, setUsers] = useState([])
     
+    useEffect(()=> {
+        setMyId(user.info.id)
+        Axios.get(process.env.ENDPOINT+'/get-users',{
+            headers: {
+                Authorization: `Bearer ${user.jwt}`
+            }
+        })
+        .then((response) => {
+            setUsers(response.data)
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }, [user])
+
+    useEffect(() => {
+        const userId = user.info.id;
+        setRoom(`${Math.max(userId,friendId)}$${Math.min(userId,friendId)}`)
+        
+    }, [friendId])
+
     useEffect(() => {
         const handleNewMessage = (data) => {
             const pos = data.sender === myId ? 'right' : 'left'
@@ -65,6 +90,12 @@ const Chat = () => {
                 <div className={styles['chat_users_input-sec']}>
                     <Input/>
                 </div>
+                
+                {users.map((item, key)=>
+                    <div className={styles['chat_users_user-info']}>
+                        <UserInfo key={key} setId={(id) => setFriendId(id)} id={item.id} letter={item.username[0].toLowerCase()} username={item.username}/>
+                    </div>
+                )}
             </div>
             <div className={styles['chat_messages']}>
                 <div className={styles['chat_messages_top-sec']}>
@@ -72,11 +103,6 @@ const Chat = () => {
                 </div>
                 <div className={styles['chat_messages-sec']}>
                     <div className={styles['chat_messages-sec_content']}>
-                        <Message text={'Hi'} position={'right'}/>
-                        <Message text={`Hi`} position={'left'}/>
-                        <Message text={'Hi, Whats up?'} position={'right'}/>
-                        <Message text={`Hi, yeah i'am fine`} position={'left'}/>
-                        <Message text={'nice'} position={'right'}/>
                         {messeges.map((item,key)=>
                             <Message key={key} text={item.message} position={item.position}/>
                         )}

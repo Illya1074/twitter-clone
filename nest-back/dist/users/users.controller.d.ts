@@ -10,6 +10,7 @@ export declare class UsersController {
     getUser(userData: {
         email: string;
     }): Promise<any>;
+    getUsers(): Promise<any>;
     findUserById(userData: {
         id: number;
     }): Promise<any>;

@@ -129,7 +129,11 @@
   display: flex;
   flex-direction: row;
   /* border: 1px solid black; */
-  margin: 0 0 20px;
+  /* margin: 0 0 20px; */
+}
+
+.home_sidebar_user-info {
+  padding: 0 0 20px;
 }
 
 .home_sidebar_footer-info {

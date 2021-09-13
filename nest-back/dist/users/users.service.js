@@ -50,6 +50,9 @@ let UsersService = class UsersService {
     async createFollower(data) {
         return this.prisma.follower.create(Object.assign({}, data));
     }
+    async findUsers() {
+        return this.prisma.user.findMany();
+    }
     async users(params) {
         const { skip, take, cursor, where, orderBy } = params;
         return this.prisma.user.findMany({
