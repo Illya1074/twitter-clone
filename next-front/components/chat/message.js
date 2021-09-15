@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../../styles/Chat.module.css'
+import PropTypes from 'prop-types';
 
 const Message = ({text, position}) => {
     // console.log(position)
@@ -13,3 +14,8 @@ const Message = ({text, position}) => {
 }
 
 export default Message
+
+Message.propTypes = {
+  text: PropTypes.string,
+  position: PropTypes.string,
+};

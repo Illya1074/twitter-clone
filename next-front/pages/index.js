@@ -1,6 +1,6 @@
 import styles from '../styles/Home.module.css'
 import Head from 'next/head'
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import store from '../redux/store'
 import ContentWrapper from '../components/home/contentWrapper';
 import SendTweet from '../components/home/sendTweet';

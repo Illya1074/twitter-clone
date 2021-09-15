@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
 import {useRouter} from 'next/router'
 import Sidebar from '../sidebar/sidebar'
+import PropTypes from 'prop-types';
 import styles from '../../styles/Home.module.css'
 
 
-const Layout = (props) => {
+const Layout = ({children}) => {
     const state = useSelector(state => state.user)
     const [auth, setAuth] = useState(false);
     const route = useRouter()
@@ -28,14 +29,18 @@ const Layout = (props) => {
                 <div className={styles.container}>
                     <main className={styles.home}>
                         <Sidebar letter={letter}/>
-                        {props.children}
+                        {children}
                     </main>
                 </div>
                 :
-                props.children
+                children
             }
         </>
     )
 }
 
 export default Layout
+
+Layout.propTypes = {
+  children: PropTypes.obj,
+};

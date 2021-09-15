@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import styles from '../../styles/Home.module.css'
 import Form from '../../components/ui_items/form'; 
 import Avatar from './avatar'
+import PropTypes from 'prop-types';
 import ContentEditable from 'react-contenteditable'
 import dynamic from "next/dynamic";
 
@@ -9,7 +10,7 @@ const Picker = dynamic(() => import("./emojiPicker"), {
   ssr: false,  
 });
 
-const SendTweet = (props) => {
+const SendTweet = ({letter,sendTweet}) => {
     const [tweetText, setTweetText] = useState("");
     const [placeholderState, setPlaceholderState] = useState(true)
     const [emojiState, setEmojiState] = useState(false);
@@ -33,7 +34,7 @@ const SendTweet = (props) => {
     const clickSend = async () => {
         setTweetText('<br>')
         setPlaceholderState(true)
-        props.sendTweet(tweetText)
+        sendTweet(tweetText)
     }
     
     return (
@@ -68,12 +69,12 @@ const SendTweet = (props) => {
                 
             </Form>
             <div className={styles['home_content-section_send_tweet-section']}>
-                <Avatar letter={props.letter}/>
+                <Avatar letter={letter}/>
                 {/* <input onChange={(e)=>props.setTweet(e.target.value)} value={props.tweet} className={styles['home_content-ection_send_tweet-section-input']} placeholder="What's happening?"></input> */}
                 {/* <div className={styles['home_content-ection_send_tweet-section-input']}> */}
                 
                 <div className={styles['home_content-ection_send_tweet-section-input_wrapper']}>
-                    {placeholderState ? <div className={styles["my-custom-placeholder"]}>What's happening?</div> : null}
+                    {placeholderState ? <div className={styles["my-custom-placeholder"]}>What&apos;s happening?</div> : null}
                     <ContentEditable placeholder="What's happening?" className={styles['home_content-ection_send_tweet-section-input']} 
                     html={tweetText} onChange={handleChange} />
                     
@@ -118,3 +119,8 @@ const SendTweet = (props) => {
 }
 
 export default SendTweet
+
+SendTweet.propTypes = {
+  letter: PropTypes.string,
+  sendTweet: PropTypes.func,
+};

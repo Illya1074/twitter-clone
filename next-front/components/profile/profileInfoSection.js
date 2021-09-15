@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../../styles/Profile.module.css'
+import PropTypes from 'prop-types';
 
 
 const ProfileInfoSection = ({profile, edit}) => {
@@ -77,3 +78,8 @@ const ProfileInfoSection = ({profile, edit}) => {
 }
 
 export default ProfileInfoSection
+
+ProfileInfoSection.propTypes = {
+  profile: PropTypes.obj,
+  edit: PropTypes.func,
+};

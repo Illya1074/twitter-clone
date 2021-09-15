@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../../styles/Home.module.css'
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router'
 
 const SidebarItem = ({children, val}) => {
@@ -27,3 +28,8 @@ const SidebarItem = ({children, val}) => {
 }
 
 export default SidebarItem
+
+SidebarItem.propTypes = {
+  children: PropTypes.obj,
+  val: PropTypes.string,
+};

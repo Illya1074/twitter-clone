@@ -1,5 +1,5 @@
 import style from '../../styles/Home.module.css'
-import {useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import ContentWrapper from '../../components/home/contentWrapper';
 import Trends from '../../components/home/trends';
@@ -86,7 +86,8 @@ export default function Home() {
         <link rel="icon" href="/twitter.png" />
       </Head>
       { editSec ?
-        <EditSection textUsername={textUsername} textBio={textBio} textLoc={textLoc} setEditSec={()=>setEditSec(false)} updateProfile={clickUpdateProfile}/>
+        <EditSection textUsername={textUsername} textBio={textBio} textLoc={textLoc} 
+          setEditSec={()=>setEditSec(false)} updateProfile={clickUpdateProfile}/>
         : 
         null
       }

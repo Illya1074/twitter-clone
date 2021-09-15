@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../../styles/Profile.module.css'
 import ContentEditable from 'react-contenteditable'
+import PropTypes from 'prop-types';
 
 const EditSection = ({textUsername,textBio,textLoc,setEditSec,updateProfile}) => {
 
@@ -32,15 +33,18 @@ const EditSection = ({textUsername,textBio,textLoc,setEditSec,updateProfile}) =>
             <div className={styles['editable-section_input-items']}>
               <div className={styles['editable-section_input-item']}>
                 <div className={styles['editable-section_input-title']}>Name</div>
-                <ContentEditable className={styles['editable-section_input-little']} html={textUsername.current} onChange={(evt)=>textUsername.current = evt.target.value} />          
+                <ContentEditable className={styles['editable-section_input-little']} html={textUsername.current} 
+                  onChange={(evt)=>textUsername.current = evt.target.value} />          
               </div>
               <div className={styles['editable-section_input-item']}>
                 <div className={styles['editable-section_input-title']}>Bio</div>
-                <ContentEditable className={styles['editable-section_input-big']} html={textBio.current} onChange={(evt)=>textBio.current = evt.target.value} />          
+                <ContentEditable className={styles['editable-section_input-big']} html={textBio.current} 
+                  onChange={(evt)=>textBio.current = evt.target.value} />          
               </div>
               <div className={styles['editable-section_input-item']}>
                 <div className={styles['editable-section_input-title']}>Location</div>
-                <ContentEditable className={styles['editable-section_input-little']} html={textLoc.current} onChange={(evt)=>textLoc.current = evt.target.value} />          
+                <ContentEditable className={styles['editable-section_input-little']} html={textLoc.current}
+                  onChange={(evt)=>textLoc.current = evt.target.value} />          
               </div>
             </div>
           </div>
@@ -49,3 +53,10 @@ const EditSection = ({textUsername,textBio,textLoc,setEditSec,updateProfile}) =>
 }
 
 export default EditSection
+EditSection.propTypes = {
+  textUsername: PropTypes.string,
+  textBio: PropTypes.string,
+  textLoc: PropTypes.string,
+  setEditSec: PropTypes.func,
+  updateProfile: PropTypes.func,
+};

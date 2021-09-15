@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styles from '../../styles/Home.module.css'
-import Avatar from '../home/avatar'
+import PropTypes from 'prop-types';
 import Image from 'next/image'
 import SidebarWrapper from '../sidebar/sidebarWrapper'
 import SidebarItem from './sidebarItem'
@@ -61,3 +61,7 @@ const Sidebar = ({letter}) => {
 }
 
 export default Sidebar
+
+Sidebar.propTypes = {
+  letter: PropTypes.string,
+};

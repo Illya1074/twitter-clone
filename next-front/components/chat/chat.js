@@ -7,7 +7,7 @@ import {useSelector} from 'react-redux';
 import UserInfo from '../ui_items/userInfo';
 import Axios from 'axios';
 
-function useSocket(url, room) {
+function useSocket(url) {
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
@@ -30,7 +30,10 @@ function useSocket(url, room) {
 const Chat = () => {
     const socket = useSocket(process.env.ENDPOINT)
     const [room, setRoom] = useState('');
-    const [friendId, setFriendId] = useState(0);
+    const [friendInfo, setFriendInfo] = useState({
+        id: 0,
+        username: ''
+    });
     const [messeges, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const user = useSelector(state => state.user)
@@ -55,9 +58,12 @@ const Chat = () => {
 
     useEffect(() => {
         const userId = user.info.id;
-        setRoom(`${Math.max(userId,friendId)}$${Math.min(userId,friendId)}`)
+        if(socket){
+            setRoom(`${Math.max(userId,friendInfo)}$${Math.min(userId,friendInfo)}`)
+            socket.emit('joinRoom',`${Math.max(userId,friendInfo)}$${Math.min(userId,friendInfo)}`)
+        }
         
-    }, [friendId])
+    }, [friendInfo])
 
     useEffect(() => {
         const handleNewMessage = (data) => {
@@ -68,7 +74,6 @@ const Chat = () => {
             }]);
         }
         if (socket) {
-            socket.emit('joinRoom',room)
             socket.on('message', (data) => {
                 console.log(data)
                 handleNewMessage(data)
@@ -77,7 +82,7 @@ const Chat = () => {
     }, [socket])
 
     const handleSubmitNewMessage = (text) => {
-        // console.log('hi')
+        console.log(room)
         socket.emit('message', { room: room, text: text, sender: user.info.id })
     }
 
@@ -91,15 +96,15 @@ const Chat = () => {
                     <Input/>
                 </div>
                 
-                {users.map((item, key)=>
-                    <div className={styles['chat_users_user-info']}>
-                        <UserInfo key={key} setId={(id) => setFriendId(id)} id={item.id} letter={item.username[0].toLowerCase()} username={item.username}/>
+                {users.map((item)=>
+                    <div key={item.id} className={styles['chat_users_user-info']}>
+                        <UserInfo setUserInfo={(obj) => setFriendInfo(obj)} id={item.id} letter={item.username[0].toLowerCase()} username={item.username}/>
                     </div>
                 )}
             </div>
             <div className={styles['chat_messages']}>
                 <div className={styles['chat_messages_top-sec']}>
-                    Tymek
+                    {friendInfo.username}
                 </div>
                 <div className={styles['chat_messages-sec']}>
                     <div className={styles['chat_messages-sec_content']}>

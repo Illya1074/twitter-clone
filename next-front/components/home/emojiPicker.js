@@ -1,5 +1,6 @@
 import React from 'react'
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import PropTypes from 'prop-types';
 
 const EmojiPicker = ({onEmojiClick}) => {
     return (
@@ -16,3 +17,7 @@ const EmojiPicker = ({onEmojiClick}) => {
 }
 
 export default EmojiPicker
+
+EmojiPicker.propTypes = {
+  onEmojiClick: PropTypes.func,
+};

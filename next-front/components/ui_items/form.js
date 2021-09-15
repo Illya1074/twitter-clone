@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../../styles/UI.module.css'
+import PropTypes from 'prop-types';
 
 const Form = ({exitForm, form, children}) => {
     return (
@@ -29,3 +30,9 @@ const Form = ({exitForm, form, children}) => {
 }
 
 export default Form
+
+Form.propTypes = {
+  children: PropTypes.obj,
+  form: PropTypes.bool,
+  exitForm: PropTypes.func,
+};

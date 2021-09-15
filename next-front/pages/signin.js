@@ -2,7 +2,7 @@ import styles from '../styles/Auth.module.css'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import store from '../redux/store'
 import { login } from '../redux/reducers/userReducer'
 

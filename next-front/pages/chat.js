@@ -1,64 +1,15 @@
 import styles from '../styles/Home.module.css'
 import Head from 'next/head'
-import {useState, useEffect} from 'react'
-import store from '../redux/store'
-import ContentWrapper from '../components/home/contentWrapper';
-import SendTweet from '../components/home/sendTweet';
-import Tweet from '../components/home/tweet';
-import Trends from '../components/home/trends';
+import React from 'react'
 import {useSelector} from 'react-redux'
-import { addNewTweet, fetchTweets, like, comment } from '../redux/reducers/tweetsReducer'
-import { logout } from '../redux/reducers/userReducer'
 import Sidebar from '../components/sidebar/sidebar';
-import io from 'socket.io-client';
 import Chat from '../components/chat/chat';
 
-function useSocket(url) {
-  const [socket, setSocket] = useState(null)
-
-  useEffect(() => {
-    const socketIo = io(url)
-
-    setSocket(socketIo)
-
-    function cleanup() {
-      socketIo.disconnect()
-    }
-    return cleanup
-
-    // should only run once and not on every re-render,
-    // so pass an empty array
-  }, [])
-
-  return socket
-}
 
 export default function Home() {
-  const state = useSelector(state => state.tweets)
   const user = useSelector(state => state.user)
   const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
-  const [messeges, setMessages] = useState([])
-  const socket = useSocket('http://localhost:1374')
-
-  useEffect(() => {
-    const handleNewMessage = (mes) => {
-      console.log(messeges)
-      // const newArr = [...messeges,mes] 
-      setMessages(()=>[...messeges,1,2,3]);
-    }
-
-    if (socket) {
-      socket.on('message', ({data}) => {
-        handleNewMessage(data)
-      },)
-    }
-  }, [socket])
-
-
-  const handleSubmitNewMessage = () => {
-    socket.emit('message', { data: Date.now() })
-  }
-
+  
 
 
   return (

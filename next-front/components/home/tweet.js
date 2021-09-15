@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import Avatar from './avatar'
 import {useSelector} from 'react-redux'
 import styles from '../../styles/Home.module.css'
+import PropTypes from 'prop-types';
 import CommentForm from '../comment/commentForm'
+
 const Tweet = ({tweetInfo, like, sendComment}) => {
     const [likes, useLikes] = useState(tweetInfo ? tweetInfo.likeBy.length : 0)
     const [comment, useComment] = useState(tweetInfo ? tweetInfo.comment.length : 0)
@@ -10,6 +12,7 @@ const Tweet = ({tweetInfo, like, sendComment}) => {
     const user = useSelector(state => state.user)
     const letter = user.info ? user.info.username[0].toLowerCase() : undefined;
     const [count, setCount] = useState(true)
+    
     const likeFunc = () => {
         like({tweetId:tweetInfo.id})
         if(count === true){
@@ -17,9 +20,11 @@ const Tweet = ({tweetInfo, like, sendComment}) => {
             setCount(false)
         }
     }
+
     const commentSwitch = () => {
         setCommentForm(!commentForm)
     }
+
     return (
         <>
         { 
@@ -82,3 +87,9 @@ const Tweet = ({tweetInfo, like, sendComment}) => {
 }
 
 export default Tweet
+
+Tweet.propTypes = {
+  tweetInfo: PropTypes.obj,
+  sendComment: PropTypes.func,
+  like: PropTypes.func,
+};
